@@ -1,0 +1,26 @@
+🧠 What the question is saying:
+You are given:
+A list of numbers → nums
+A number → target
+Your job:
+👉 Find two numbers in the list that add up to the target
+
+
+
+fun main() {
+    val arr = intArrayOf(2,9,11,7,15)
+    val target = 9
+    val map = mutableMapOf<Int,Int>()
+    
+    for(i in arr.indices){
+        val compliment = target - arr[i]
+        
+        if(map.containsKey(compliment)){
+            println("${map[compliment]} -- $i")
+            return
+        }
+        
+        map[arr[i]] = i
+    }
+    print(arr.toList())
+}
