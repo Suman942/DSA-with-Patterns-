@@ -1,0 +1,75 @@
+**Given two strings s and t, return true if t is an anagram of s, and false otherwise.**
+
+In very simple words 👇
+
+👉 You are given two strings s and t.
+
+👉 You need to check:
+Can t be formed by rearranging the letters of s?
+
+🧠 What is an anagram?
+
+Two words are anagrams if:
+
+They have the same letters
+And the same number of each letter
+Only the order is different
+
+Example 1:
+
+Input: s = "anagram", t = "nagaram"
+Output: true
+
+
+**Solution 1: with 2 hashmap first**
+
+fun main() {
+  val  s = "anagram"
+  val t = "nagaram"
+    
+  if(s.length != t.length) {
+      print(false) 
+      return
+  }
+    
+  val sMap = mutableMapOf<Char,Int>()
+  val tMap = mutableMapOf<Char,Int>()
+  
+  for(i in s.indices){
+      //store freqency of each character in map and increment by 1
+      sMap[s[i]] = sMap.getOrDefault(s[i],0) + 1 
+  }
+  
+  for(i in t.indices){
+      //store freqency of each character in map and increment by 1
+      tMap[t[i]] = tMap.getOrDefault(t[i],0) + 1
+  }
+  // compare the values of both map
+  if(sMap != tMap){
+    print(false)
+  }else{
+      print(true)
+  }
+}
+
+Solution 2 : More optimal with only 1 hashmap
+class Solution {
+    fun isAnagram(s: String, t: String): Boolean {
+    val sMap = mutableMapOf<Char, Int>()
+    if (s.length != t.length) return false
+
+    for (i in s.indices) {
+        //store freqency of each character in map and increment by 1
+        sMap[s[i]] = 1 + sMap.getOrDefault(s[i], 0)
+        // frequency of each character in map is decremented by 1
+        sMap[t[i]] = sMap.getOrDefault(t[i],0) - 1
+    }
+    // if all values in the map is 0 its valid anagram
+    for(value in sMap.values){
+        if(value != 0){
+            return false
+        }
+    }
+    return true
+    }
+}
