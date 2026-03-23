@@ -8,19 +8,17 @@ You are given an array of numbers.
 If yes → return true
 If no → return false
 
-
-
 fun main() {
     val arr = intArrayOf(2,9,11,7,1)
     val set = mutableSetOf<Int>()
     
     for(i in arr.indices){
-        
+        // if exist inside the set return true
         if(set.contains(arr[i])){
             println(true)
             return
         }
-        
+        // store value inside the set
         set.add(arr[i])
     }
     print(false)
