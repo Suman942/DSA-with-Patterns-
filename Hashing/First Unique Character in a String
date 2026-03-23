@@ -1,0 +1,15 @@
+📌 Problem (simple words)
+
+Given a string, find the first character that appears only once.
+
+👉 Return its index
+👉 If none exists → return -1
+
+✅ Example
+s = "leetcode"
+l → 1 time ✅
+e → 3 times ❌
+t → 1 time
+
+👉 First unique = 'l' → index 0
+
