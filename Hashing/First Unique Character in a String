@@ -13,3 +13,23 @@ t → 1 time
 
 👉 First unique = 'l' → index 0
 
+Solution 1: with hashmap
+
+class Solution {
+    fun firstUniqChar(s: String): Int {
+         val map = mutableMapOf<Char,Int>()
+  
+        for(i in s.indices){
+            // store frequency
+           map[s[i]] = map.getOrDefault(s[i],0) + 1 
+         }
+  
+        for(i in s.indices){
+            // get first item whose frequency was 1
+             if(map[s[i]] == 1) {    
+            return i
+            }
+        }
+        return -1
+    }
+}
