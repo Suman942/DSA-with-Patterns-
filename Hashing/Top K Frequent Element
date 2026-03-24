@@ -1,0 +1,46 @@
+🧠 Problem in one line
+
+👉 “Find the k numbers that appear most often in the array”
+
+Example
+Input: nums = [4,4,4,6,6,7], k = 2  
+Output: [4,6]
+Explanation
+4 appears 3 times
+6 appears 2 times
+7 appears 1 time
+
+The top 2 most frequent elements are 4 and 6.
+
+
+Solution:
+fun main() {
+ val nums1 = intArrayOf(4,4,4,6,6,7)
+ val k = 2
+ var result = mutableListOf<Int>()
+ val map = mutableMapOf<Int,Int>()
+ 
+ for(i in nums1){
+     map[i] = map.getOrDefault(i,0) + 1
+ }
+ 
+ val bucket = MutableList<MutableList<Int>>(nums1.size+1){mutableListOf()}
+ 
+ for((key,value) in map){
+     bucket[value].add(key)
+ }
+ println(bucket)
+ 
+ for(i in bucket.size - 1 downTo 0){
+     
+     for(j in bucket[i]){
+       result.add(j)
+       if(result.size == k){
+           println(result)
+           return
+       }
+     }
+     
+ }
+ 
+}
