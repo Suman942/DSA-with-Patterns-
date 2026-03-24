@@ -1,0 +1,31 @@
+Each element in result must be UNIQUE
+Even if a number appears many times → take it only once
+📌 Example
+nums1 = [1,2,2,1]
+nums2 = [2,2]
+
+👉 Common element = 2
+👉 But we only take it once
+
+✅ Output: [2]
+
+Solution : 
+fun main() {
+ val nums1 = intArrayOf(1,2,2,1)
+ val nums2 = intArrayOf(2,2)
+ 
+    val set = mutableSetOf<Int>()
+    val result = mutableSetOf<Int>()
+    
+    for(i in nums1){
+        set.add(i)
+    }
+    
+    for(i in nums2){
+        if(set.contains(i)){
+            result.add(i)
+     
+        }
+    }
+    print(result)
+}
