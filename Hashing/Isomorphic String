@@ -1,0 +1,76 @@
+An isomorphic string problem checks whether two strings can be transformed into each other by consistently replacing characters.
+
+🔑 Simple definition:
+
+Two strings are isomorphic if:
+
+Each character in the first string can be replaced to get the second string.
+The mapping must be one-to-one (no two characters map to the same character).
+The order of characters must stay the same.
+
+✅ Example 1:
+s = "egg"
+t = "add"
+
+Mapping:
+
+e → a
+g → d
+
+✔ Valid → Isomorphic
+
+❌ Example 2:
+s = "foo"
+t = "bar"
+
+Mapping:
+
+f → b
+o → a
+o → r ❌ (same character mapping to two different ones)
+
+✖ Invalid → Not isomorphic
+
+
+Solution 1: with hashmap
+class Solution {
+    fun isIsomorphic(s: String, t: String): Boolean {
+
+        if(s.length != t.length) return false
+
+        val mapST = mutableMapOf<Char,Char>()
+        val mapTS = mutableMapOf<Char,Char>()
+
+        for(i in s.indices){
+            val c1 = s[i] // first char of s
+            val c2 = t[i] // first char of t
+            // if exist and value mismatch not valid
+            if(mapST.containsKey(c1) && mapST[c1] != c2) return false
+            if(mapTS.containsKey(c2) && mapTS[c2] != c1) return false
+
+            mapST[c1] = c2 // map first char s to  first char of t
+            mapTS[c2] = c1 // map first char t to first char s
+        }
+        return true
+    }
+}
+
+Solution 2: with IntArray
+class Solution {
+    fun isIsomorphic(s: String, t: String): Boolean {
+        if(s.length != t.length) return false
+        
+        val mapST = IntArray(256){-1}
+        val mapTS = IntArray(256){-1}
+
+        for(i in s.indices){
+            val c1 = s[i].code
+            val c2 = t[i].code
+
+            if(mapST[c1] != mapTS[c2]) return false
+            mapST[c1] = i
+            mapTS[c2] = i
+        }
+    return true
+    }
+}
