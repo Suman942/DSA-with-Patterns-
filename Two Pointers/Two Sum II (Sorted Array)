@@ -1,0 +1,42 @@
+🧩 Problem: Two Sum II (Sorted Array)
+
+Given a 1-indexed array of integers numbers that is sorted in non-decreasing order, find two numbers such that they add up to a specific target number.
+
+Note: 1-indexed array means array start from index 1 and not 0
+
+📥 Input
+An integer array numbers sorted in non-decreasing order
+An integer target
+
+📤 Output
+Return an array [index1, index2] (1-based indices)
+
+Example 1:
+
+Input: numbers = [2,7,11,15], target = 9
+Output: [1,2]
+
+Input: numbers = [2,3,4], target = 6
+Output: [1,3]
+
+Solution:
+class Solution {
+    fun twoSum(numbers: IntArray, target: Int): IntArray {
+        var i = 0
+        var j = numbers.size - 1
+        while(i < j){
+            val sum = numbers[i] + numbers[j]
+            // if sum is greater than target -> decrease j
+            if(sum > target){
+                j--
+            }
+            // if sum is smaller than target increase i++
+            else if (sum < target){
+                i++
+            }else{
+                return intArrayOf(i+1,j+1)
+            }
+        }
+        return intArrayOf()
+    }
+}
