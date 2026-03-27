@@ -1,0 +1,51 @@
+🧩 Problem: Merge Sorted Array
+
+You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n.
+
+nums1 has a size of m + n, where:
+The first m elements are valid
+The last n elements are 0s (placeholders) to hold elements from nums2
+
+Merge nums2 into nums1 as one sorted array.
+
+📥 Input
+nums1: IntArray of size m + n
+m: number of valid elements in nums1
+nums2: IntArray of size n
+n: number of elements in nums2
+
+📤 Output
+Do not return anything
+Modify nums1 in-place
+
+Example 1:
+Input:
+nums1 = [1,2,3,0,0,0], m = 3
+nums2 = [2,5,6], n = 3
+
+Output:
+[1,2,2,3,5,6]
+
+
+Solution:
+class Solution {
+    fun merge(nums1: IntArray, m: Int, nums2: IntArray, n: Int): Unit {
+        var i = m-1 // valid elements in nums1
+        var j = n-1 // valid elements in nums2
+        var k = m+n-1 // index at which element will be added
+        // we will start shifting elements from the back
+        while(j>=0){
+            // if nums1 ith element is larger shift nums1[i] to kth index
+            if(i>=0 && nums1[i]>nums2[j]){
+                nums1[k]=nums1[i]
+                i--
+            }
+            // if nums1 ith element is smaller shift nums2[j] to kth index
+            else{
+                nums1[k] = nums2[j]
+                j--
+            }
+             k--
+        }
+    }
+}
