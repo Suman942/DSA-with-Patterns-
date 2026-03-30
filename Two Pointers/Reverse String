@@ -1,0 +1,36 @@
+-> Reverse string problem
+Input "Github"
+Output "buhtiG"
+
+Solution 1 (In place solution):
+  fun main() {
+  val str = "suman"
+  val s= str.toCharArray()
+ 	var i = 0
+ 	var j = s.size - 1
+
+  while(i < j){
+        val ith = s[i]
+      	s[i] = s[j]
+        s[j] = ith
+        i++
+        j--
+    }
+	
+}
+
+Solution 2(With extra space):
+
+fun main() {
+    val str = "suman"
+   	val stack = ArrayDeque<Char>()
+    
+    for(i in str.indices){
+        stack.addFirst(str[i])
+    }
+    val result = StringBuilder()
+    while(stack.isNotEmpty()){
+        result.append(stack.removeFirst())
+    }
+
+}
