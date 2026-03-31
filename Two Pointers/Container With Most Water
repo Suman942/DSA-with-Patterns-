@@ -1,0 +1,25 @@
+Find two lines such that together with the x-axis, they form a container that holds the maximum amount of water.
+
+height = [1,8,6,2,5,4,8,3,7]
+Explanation:
+Choose two indices i and j
+The height is limited by the shorter line
+Width = distance between them
+
+Solution 1:
+Brute force approach:
+fun main() {
+	val nums = intArrayOf(1,8,6,2,5,4,8,3,7)
+   	var maxWater = 0
+    // 1. find all possible containers
+    for(i in nums.indices){
+        for(j in i+1 until nums.size){ // initialises with i+1 because i itself is not a container
+            val width = j - i // width between the left and right boundary
+            val height = minOf(nums[i],nums[j]) // pick minimum height 
+            val area = width * height
+            
+            maxWater = maxOf(maxWater,area)
+        }
+    }
+    print(maxWater)
+}
