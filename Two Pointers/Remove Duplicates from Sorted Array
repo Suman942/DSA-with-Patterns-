@@ -1,0 +1,42 @@
+🧩 Problem: Remove Duplicates from Sorted Array
+
+You are given an integer array nums sorted in non-decreasing order.
+
+Your task is to remove the duplicates in-place, such that:
+
+Each unique element appears only once
+The relative order of elements remains the same
+
+🎯 What should you return?
+
+Return an integer k such that:
+
+The first k elements of nums contain the unique elements
+The rest of the array doesn’t matter
+
+🔍 Example
+Input:
+nums = [1, 1, 2, 2, 3]
+
+After removing duplicates:
+nums = [1, 2, 3, _, _]
+
+First k = 3 elements are unique
+_ means values beyond k are irrelevant
+
+Solution:
+class Solution {
+fun removeDuplicates(nums: IntArray): Int {
+    if(nums.size == 0) return 0
+    var i = 0
+    var j = 1
+    while(j < nums.size){
+        if(nums[i] != nums[j]){
+            i++
+            nums[i] = nums[j]
+        }
+        j++
+    }
+   return i+1
+    }
+}
