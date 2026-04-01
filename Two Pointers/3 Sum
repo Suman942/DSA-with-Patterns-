@@ -26,5 +26,30 @@ fun main() {
         }
     }
         println(set.toList())
+}
+
+2. Brute force solution with O(n2)
+- core idea to remove third loop 
+- a + b + c = 0 -> so, c = - a - b
+ val nums = intArrayOf(-1,0,1,2,-1,-4)
+	val set = mutableSetOf<List<Int>>()
+    for(i in nums.indices){
+        val target = -nums[i] // -a
+        val map = hashSetOf<Int>()
+		
+        for(j in i+1 until nums.size){
+           val toFind = target - nums[j]  // c = - a - b
+            if(map.contains(toFind)){ // if exist triplet found
+                val result = mutableListOf<Int>()
+                result.add(nums[i])
+                result.add(toFind)
+                result.add(nums[j])
+                println(result.sorted())
+                set.add(result.sorted())
+             }
+            map.add(nums[j])  // storing b
+        }
+    }
+     println(set.toList())                  
 
 }
