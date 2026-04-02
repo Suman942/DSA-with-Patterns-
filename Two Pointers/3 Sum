@@ -53,3 +53,39 @@ fun main() {
      println(set.toList())                  
 
 }
+
+3. Optimal solution
+fun main() {
+ val nums = intArrayOf(-1,0,0,1,2,-1,-4)
+ val result = mutableListOf<List<Int>>()
+ nums.sort()
+ for(i in nums.indices){
+     if(i > 0 && nums[i] == nums[i-1]) continue
+     var j = i + 1
+     var k = nums.size - 1
+     while(j < k){
+         val sum = nums[i]+ nums[j] + nums[k]
+         
+         if(sum < 0){
+             j++
+         }else if (sum > 0){
+             k--
+         }else{
+             val list = mutableListOf<Int>()
+             list.add(nums[i])
+             list.add(nums[j])
+             list.add(nums[k])
+             
+             result.add(list)
+             j++
+			 k--
+             
+             while(j < k && nums[j] == nums[j-1]){
+                 j++
+             }
+         }
+        
+     }
+ }
+ println(result)
+}
