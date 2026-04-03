@@ -1,0 +1,39 @@
+🧩 Problem: Range Sum Query – Immutable
+
+👉 Given an integer array nums, handle multiple queries:
+
+Return the sum of elements between index left and right (inclusive).
+
+Input:
+nums = [1, 2, 3, 4]
+
+Queries:
+sumRange(0, 2) → 1 + 2 + 3 = 6
+sumRange(1, 3) → 2 + 3 + 4 = 9
+
+
+Solution:
+class NumArray(nums: IntArray) {
+    val prefixSum = IntArray(nums.size)
+    init{
+    prefixSum[0] = nums[0]
+      // sum of all index
+        for(i in 1 until nums.size){
+         prefixSum[i] = nums[i] + prefixSum[i -1] // [1, 3, 6, 10]
+        } 
+    }
+
+    fun sumRange(left: Int, right: Int): Int {
+      // left = 1 , right = 3
+        return  if(left == 0){
+            prefixSum[right] // if left is 0 cant decrease select the right index value
+          }else{
+            prefixSum[right] - prefixSum[left - 1] // prefixSum[right] = 10 , prefixSum[left -1] =   1 => 9 (left index index is decreased by 1 to include the index)
+          }
+    }
+
+
+}
+
+
+ */
