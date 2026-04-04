@@ -1,0 +1,42 @@
+🔹 Pivot Index (1D Array)
+
+The pivot index is an index in an array such that:
+
+Sum of elements on the left = Sum of elements on the right
+
+🔹 Example
+Array: [1, 7, 3, 6, 5, 6]
+
+Index:        0   1   2   3   4   5  
+Left sum:     -   1   8  11  17  22  
+Right sum:   27  20  17  11   6   -
+
+At index 3 (value = 6):
+
+Left sum = 1 + 7 + 3 = 11
+Right sum = 5 + 6 = 11
+
+✅ So, index 3 is the pivot index.
+
+
+Solution:
+class Solution {
+    fun pivotIndex(nums: IntArray): Int {
+        var prefixSum = 0
+        for(i in nums){
+            prefixSum += i // sum of all index
+        }
+        var left = 0
+        for(i in nums.indices){
+// main idea is to fix a index and find left sum before that index and also right sum after the index
+// e.g- 0 index -> left = 0 and right = 7 + 3 + 6 + 5 + 6 = 27
+            val right = prefixSum - nums[i] - left // find rightSum = total sum - current element - leftsum // right = 27
+            if(left == right){
+                return i
+            }
+            left += nums[i] // leftSum = 0 + 1 = 1
+        }
+        return - 1
+    }
+
+}
