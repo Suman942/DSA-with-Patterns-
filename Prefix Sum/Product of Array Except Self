@@ -1,0 +1,45 @@
+Given an integer array nums, return an array answer such that:
+
+👉 answer[i] = product of all elements except nums[i]
+
+Example
+Input:
+nums = [1, 2, 3, 4]
+
+Output:
+[24, 12, 8, 6]
+
+Solution:
+Step 1: Product of all element left of i (Prefix)
+-  if i = 3 -> product of 0 to 2  = 1 x 2 x 3 = 6
+
+Step 2: Product of all element right of i (Suffix)
+-  if i = 1 -> product of 2 to 3  =  3 x 4 = 12
+
+Step 3: Product of prefix * suffix
+answer[i] = preffix * suffix
+
+
+class Solution {
+    fun productExceptSelf(nums: IntArray): IntArray {
+    
+    val n = nums.size
+    val answer = IntArray(n)
+
+    // prefix
+    var prefix = 1
+    for(i in nums.indices){
+        answer[i] = prefix
+        prefix *= nums[i]
+    }
+    // suffix
+    var suffix = 1
+    for(i in n-1 downTo 0){
+        answer[i] *= suffix
+        suffix *=nums[i]
+    }
+
+    return answer
+ 
+    }
+}
