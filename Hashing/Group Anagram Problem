@@ -1,0 +1,28 @@
+Given an array of strings strs, group the anagrams together.
+
+An anagram is a word formed by rearranging the letters of another word, using all original letters exactly once.
+
+Example 1:
+
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["eat","tea","ate"],["tan","nat"],["bat"]]
+
+Solution:
+fun main() {
+ val strs = arrayOf("eat","tea","tan","ate","nat","bat")
+	
+ val map = mutableMapOf<String,MutableList<String>>()
+ 
+ for(str in strs){
+     val arr = IntArray(26)
+	  println(str)
+    for(ch in str){
+        arr[ch - 'a']++
+        
+    }
+    val key = arr.joinToString("#")
+    map.getOrPut(key){mutableListOf()}.add(str)
+ }
+  println(map.toList())
+
+}
