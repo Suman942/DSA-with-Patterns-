@@ -1,0 +1,53 @@
+📌 Problem
+
+Given:
+
+An integer array nums
+An integer k
+
+Return true if there exists a continuous (contiguous) subarray of size ≥ 2 whose sum is a multiple of k.
+
+Example:
+nums = [23, 2, 4, 6, 7], k = 6
+Output: [2, 4] → sum = 6 → multiple of 6 ✅  -> true
+
+
+Approach:
+1. Store prefix sum
+2. Get remainder -> prefix by k
+3. Check if remainder exist in the map
+- yes
+get the value from the map 
+check the differnce between 2 index 
+if the distance is less than or equal to 2 return true
+- no
+Store remainder in hashmap with index value
+
+Solution: 
+
+fun main() {
+ 
+    val nums = intArrayOf(23,2,4,6,7)
+    val k = 6
+
+    val map = mutableMapOf<Int,Int>()
+    map[0] = -1  // store reaminder as key and value as index
+    var prefix = 0
+    
+    for(i in nums.indices){
+        prefix += nums[i]  // prefix
+        
+        val remainder = prefix % k    // get remainder
+        if(map.containsKey(remainder)){ // if previous exist
+            val prevRemainder = map[remainder]!!
+            if((i - prevRemainder) >= 2){  // check the distance between 2 index it should be greater than 2
+                println(true)
+                break
+            }
+        }else{
+            map[remainder] = i // store remainder and index
+        }
+    }
+    
+
+} 
