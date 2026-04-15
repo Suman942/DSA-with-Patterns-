@@ -1,0 +1,45 @@
+🧠 Problem
+
+Given an array, count the number of subarrays whose sum is divisible by k.
+
+nums = [4,5,0,-2,-3,1], k = 5
+Output = 7
+
+Approach: 
+1. Calculate prefix sum
+2. Check remainder (make sure you handle negative value) -> ((prefix % k) + k) % k
+prefix = 4
+-> ((4 % 5) + 5 ) % 5
+-> (4 + 5) % 5
+-> 9 % 5 = 4 remainder
+
+prefix = 4 + 5
+-> ((9 % 5) + 5 ) % 5
+-> (4 + 5) % 5
+-> 9 % 5 = 4 remainder
+
+3. Store the frequency of the remainder in the map
+4. Count the frequency of the remainder
+
+Solution:
+fun main() {
+ val nums = intArrayOf(4,5,0,-2,-3,1)
+	val k = 5
+    var prefix = 0
+   	var count = 0
+   
+    val map = mutableMapOf<Int,Int>()
+    map[0] = 1
+    for(i in nums.indices){
+        prefix += nums[i]
+        
+        val remainder = ((prefix % k)+k) % k
+        
+        count += map.getOrDefault(remainder,0)
+        
+        map[remainder] = map.getOrDefault(remainder,0)+1
+        
+    }
+  
+    println(count) 
+}
