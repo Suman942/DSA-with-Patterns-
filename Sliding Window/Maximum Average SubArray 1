@@ -1,0 +1,38 @@
+You are given an integer array nums consisting of n elements, and an integer k.
+
+Find a contiguous subarray of length exactly k such that the average value of this subarray is maximized.
+
+Example
+
+Input:
+
+nums = [1, 12, -5, -6, 50, 3]
+k = 4
+What you do:
+
+Pick every contiguous subarray of size 4:
+[1, 12, -5, -6]
+Sum = 2 → Average = 2 / 4 = 0.5
+[12, -5, -6, 50]
+Sum = 51 → Average = 51 / 4 = 12.75 
+[-5, -6, 50, 3]
+Sum = 42 → Average = 42 / 4 = 10.5
+
+Output: 12.75
+
+Solution: 
+class Solution {
+    fun findMaxAverage(nums: IntArray, k: Int): Double {
+        if (nums.size == 1) return nums[0].toDouble()
+        var windowSum = 0.0
+        for(i in 0 until k){
+            windowSum += nums[i]
+        }
+        var average = windowSum/k
+        for(i in k until nums.size){
+            windowSum = windowSum + nums[i] - nums[i-k]
+            average = maxOf(average,windowSum/k)
+        }
+        return average
+    }
+}
