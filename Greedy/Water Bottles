@@ -1,0 +1,51 @@
+🧾 Problem Statement (Short + Example)
+
+You are given:
+
+numBottles = number of full water bottles initially
+numExchange = number of empty bottles needed to get 1 new full bottle
+
+You can:
+
+Drink a full bottle → it becomes an empty bottle
+Exchange numExchange empty bottles → get 1 new full bottle
+Repeat until no more exchanges are possible
+
+👉 Return the total number of bottles you can drink.
+
+📌 Example
+
+Input:
+
+numBottles = 9
+numExchange = 3
+
+Process:
+
+Start: 9 full bottles → drink them
+drank = 9, empty = 9
+Exchange: 9 empty → 3 full bottles
+drink 3 → empty becomes 3
+Exchange: 3 empty → 1 full bottle
+drink 1 → empty becomes 1
+Now: 1 empty bottle → cannot exchange anymore (needs 3)
+
+
+Solution:
+class Solution {
+    fun numWaterBottles(numBottles: Int, numExchange: Int): Int {
+        var full = numBottles
+        var totalDrank = 0
+        var empty = 0
+
+        while(full > 0){
+            totalDrank += full  // drank all
+            empty += full // after drinking all bottles are empty
+
+            full = empty / numExchange // calculate full 
+            empty = empty % numExchange
+        }
+
+        return totalDrank
+    }
+}
