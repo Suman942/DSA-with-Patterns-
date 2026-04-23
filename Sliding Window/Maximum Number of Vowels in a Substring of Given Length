@@ -1,0 +1,38 @@
+Given a string s and an integer k, return the maximum number of vowel letters in any substring of s with length k.
+
+Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.
+
+Example 1:
+
+Input: s = "abciiidef", k = 3
+Output: 3
+Explanation: The substring "iii" contains 3 vowel letters.
+
+Solution:
+fun main() {
+ val str = "abciiidef"
+ val k = 3
+    var max = 0
+  var count = 0
+    for(i in 0 until k){
+       
+        if(isVowel(str[i])){
+            count++
+        }
+       
+    }
+    max = count
+    println(max)
+    
+    for(i in k until str.length){
+        if(isVowel(str[i])) count++
+        if(isVowel(str[i - k])) count--
+        max = maxOf(max,count)
+    }
+    
+    println("final: $max")
+}
+
+fun isVowel(ch:Char): Boolean{
+    return ch in "aeiou"
+}
