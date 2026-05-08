@@ -1,0 +1,44 @@
+Given a string and an integer k, find/count all substrings of length k where every character is unique.
+
+Example
+
+String = "abcabc"
+k = 3
+
+Possible substrings of length 3:
+
+"abc" ✅ (all unique)
+"bca" ✅
+"cab" ✅
+"abc" ✅
+
+Answer = 4
+
+
+Solution:
+val s = "abccde"    
+val k= 3
+
+fun distinctSubString(s:String,k:Int):Int {
+    var count = 0
+	  val map = mutableMapOf<Char,Int>()
+    
+    for(i in 0 until k){
+        map[s[i]] = map.getOrDefault(s[i],0)+1
+    }
+    if(map.size == k){ count++ }
+    
+    for(i in k until s.length){
+
+       map[s[i]] = map.getOrDefault(s[i],0) + 1
+        
+        val prev = s[i - k]
+        map[prev] = map.getOrDefault(prev,0) - 1
+        
+        if(map[prev] == 0){ map.remove(prev) }
+
+        if(map.size == k){ count++ }
+    }
+  
+    return count
+}
