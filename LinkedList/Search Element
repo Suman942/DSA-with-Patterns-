@@ -1,0 +1,41 @@
+
+Check if value exists.
+
+Example:
+
+1 → 2 → 3
+
+Search 2
+
+Output:
+
+true
+
+Solution:
+fun main() {
+ 	val l1 = ListNode(1)
+    val l2 = ListNode(2)
+	val l3 = ListNode(3)
+
+	l1.next = l2
+	l2.next = l3
+
+	var current : ListNode? = l1
+    val search = 4
+	var op = false
+	while(current != null){
+        if(current?.value == search){
+            op =  true
+            break
+        }
+      
+        current = current.next
+    }
+     println(op)
+
+    
+}
+
+class ListNode(val value:Int){
+    var next:ListNode? = null
+}
