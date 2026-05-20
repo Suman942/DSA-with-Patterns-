@@ -1,0 +1,32 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+ 	val l1 = ListNode(1)
+    val l2 = ListNode(2)
+	val l3 = ListNode(3)
+
+	l1.next = l2
+	l2.next = l3
+
+	var current : ListNode? = l1
+  current = insertAtTheBegining(current,0)
+
+	while(current != null){
+        println(current.value)
+        current = current.next
+    }
+	
+    
+}
+
+private fun insertAtTheBegining(head:ListNode?,value:Int):ListNode{
+    val newNode = ListNode(value)
+    newNode.next = head
+	  return newNode
+}
+
+class ListNode(val value:Int){
+    var next:ListNode? = null
+}
