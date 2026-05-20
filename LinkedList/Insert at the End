@@ -1,0 +1,36 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+ 	val l1 = ListNode(1)
+    val l2 = ListNode(2)
+	val l3 = ListNode(3)
+
+	l1.next = l2
+	l2.next = l3
+
+	var head : ListNode? = l1
+	head = insertAtTheEnd(head,4)
+	while(head != null){
+        println(head.value)
+        head = head.next
+    }
+}
+
+private fun insertAtTheEnd(head:ListNode?,value:Int):ListNode{
+    val newNode = ListNode(value)
+   	if(head == null){
+        return newNode
+    }
+    var current = head
+    while(current?.next != null){
+        current = current.next!!
+    }
+    current.next = newNode
+	return head
+}
+
+class ListNode(val value:Int){
+    var next:ListNode? = null
+}
