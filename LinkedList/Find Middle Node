@@ -1,0 +1,25 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+	val l0 = ListNode(0)
+    val l1 = ListNode(1)
+	val l2 = ListNode(2)
+    
+    l0.next = l1
+    l1.next = l2
+    // fast and slow pointers
+    var slow:ListNode? = l0
+	  var fast:ListNode?= l0
+	while(fast != null && fast.next != null){
+        slow = slow?.next // increased by 1
+        fast = fast?.next?.next // increased by 2
+// when fast reaches the last node slow will always be at the middle node
+    }
+    println(slow?.value)
+}
+
+class ListNode(val value:Int){
+    var next:ListNode?=null
+}
