@@ -1,0 +1,28 @@
+fun main() {
+	val l0 = ListNode(0)
+  val l1 = ListNode(1)
+	val l2 = ListNode(2)
+  val l3 = ListNode(3)
+	val l4 = ListNode(4)
+
+    l0.next = l1
+    l1.next = l2
+    l2.next = l3
+    l3.next = l4
+	
+  var prev:ListNode? = null
+	var current : ListNode? = l0
+    
+    while(current != null){
+        val next = current.next
+    		current.next = prev
+    		prev = current
+    		current = next
+    }
+
+	    println(prev?.next?.value)
+}
+
+class ListNode(val value:Int){
+    var next:ListNode?=null
+}
