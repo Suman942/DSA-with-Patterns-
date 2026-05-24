@@ -1,0 +1,45 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+    val n = 2
+    val n1 = Node(1)
+    val n2 = Node(2)
+    val n3 = Node(3)
+    val n4 = Node(4)
+    val n5 = Node(5)
+
+    n1.next = n2
+	  n2.next = n3
+    n3.next = n4
+    n4.next = n5
+    
+	var slow :Node? = n1
+  var fast :Node? = n1
+   // move fast pointer by n+1
+    for (i in 0..n){
+        fast = fast?.next
+    }
+	println("fast: ${fast?.value}")
+
+  // move both pointer by 1 -> when fast reaches the last node slow will be just before the node which is to be removed
+    while(fast != null){
+        slow = slow?.next
+        fast = fast?.next
+    }
+
+  // delete node
+    slow?.next = slow?.next?.next
+
+  // this is to check the output
+    var current:Node? = n1
+    while(current != null){
+        println("current: ${current?.value}")
+        current = current.next
+    }
+	
+}
+class Node(val value:Int){
+    var next:Node?= null
+}
