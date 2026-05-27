@@ -1,0 +1,94 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+    val set = MyHashSet()
+    set.add(2)
+    set.add(20)
+    
+   
+	println("contains: ${set.contains(2)}")
+	println("contains: ${set.contains(20)}")
+
+	set.remove(20)
+    println("contains: ${set.contains(20)}")
+
+
+}
+
+ class Node(val key:Int,var next:Node? = null)
+
+
+class MyHashSet() {
+    
+    val size = 769 // this has to be a prime number inorder to prevent collision -> infact a prime number tends to randomize the collision 
+    val table = Array<Node?>(size){null}
+
+    fun add(key: Int) {
+		// calculate bucket index using hashing
+		val index = key % size
+		// if bucket is empty create first node
+        if(table[index] == null){
+            table[index] = Node(key)
+            return 
+        }
+        
+        var current = table[index]
+		// traverse linked list
+        while(current != null){
+			// if key already exists do nothing
+            if(current.key == key) {return}
+			// if current node is last node,
+        	// add new node after it
+            if(current.next == null){
+                current.next = Node(key)
+				return
+            }
+			// current node assigned with next node
+            current = current.next
+        }
+    }
+
+    fun remove(key: Int) {
+        // calculate bucket index using hashing or address 
+		val index = key % size
+        // if bucket is empty nothing to remove
+           var current = table[index] ?: return
+
+		
+        // if first node contains the key,
+		// move bucket head to next node
+		if(current.key == key){
+            table[index] = current.next
+            return
+        }
+        
+        // traverse linked list until next node becomes null 
+        while(current.next != null){
+			// if next node contains the key,
+			// skip that node to remove it
+            if(current.next?.key == key){
+                current?.next = current?.next?.next
+                return
+            }
+			// else keep moving to next node
+            current = current.next!!
+        }
+    }
+
+    fun contains(key: Int): Boolean {
+		// calculate bucket index using hashing or address 
+		val index = key % size
+        
+        var current = table[index]
+        while(current != null){
+            if(current?.key == key) {
+                return true}
+            current = current?.next
+        }
+		return false
+    }
+    
+
+}
