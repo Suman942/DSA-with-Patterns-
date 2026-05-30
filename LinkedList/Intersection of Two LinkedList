@@ -1,0 +1,64 @@
+You are given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect. If the two linked lists have no intersection at all, return null.
+
+Note that the linked lists must retain their original structure after the function returns.
+
+Custom Judge:
+
+The inputs to the judge are given as follows (your program is not given these inputs):
+
+intersectVal - The value of the node where the intersection occurs. This is 0 if there is no intersected node.
+listA - The first linked list.
+listB - The second linked list.
+skipA - The number of nodes to skip ahead in listA (starting from the head) to get to the intersected node.
+skipB - The number of nodes to skip ahead in listB (starting from the head) to get to the intersected node.
+The judge will then create the linked structure based on these inputs and pass the two heads, headA and headB to your program. If you correctly return the intersected node, then your solution will be accepted.
+
+
+Solution 1 (with HashSet)
+/**
+ * Definition for singly-linked list.
+ * class ListNode(var `val`: Int) {
+ *     var next: ListNode? = null
+ * }
+ */
+class Solution {
+    fun getIntersectionNode(headA: ListNode?, headB: ListNode?): ListNode? {
+        val set = mutableSetOf<ListNode>()
+        var c1: ListNode? = headA
+        while(c1 != null){
+            set.add(c1)
+            c1 = c1.next
+        }
+
+        var c2 :ListNode? = headB
+        while(c2 != null){
+            if(set.contains(c2)){
+                return c2
+            }
+            c2 = c2.next
+        }
+
+        return null
+    }
+}
+
+
+
+Solution 2: 
+/**
+ * Definition for singly-linked list.
+ * class ListNode(var `val`: Int) {
+ *     var next: ListNode? = null
+ * }
+ */
+class Solution {
+    fun getIntersectionNode(headA: ListNode?, headB: ListNode?): ListNode? {
+        var a = headA
+        var b = headB
+        while(a != b){
+            a = if(a==null) headB else a.next
+            b = if(b == null) headA else b.next
+        }
+        return b
+    }
+}
