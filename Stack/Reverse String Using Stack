@@ -1,0 +1,17 @@
+fun main() {
+	val stack = Stack<Char>()
+  	val str = "Suman"
+    for(s in str){
+        stack.push(s)
+    }
+    val strBuilder = StringBuilder()
+    for(i in str.indices){
+        if(!stack.isEmpty()){
+        val s = stack.pop()
+        strBuilder.append(s)
+        }
+    }
+    
+    println(strBuilder.toString())
+
+}
