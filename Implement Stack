@@ -1,0 +1,38 @@
+
+fun main(){
+  val stack = Stack<Int>()
+  stack.push(10)
+  stack.pop()
+}
+
+
+class Stack<T>{
+    val list = mutableListOf<T>()
+    // push
+    fun push(value:T){
+        list.add(value)
+    }
+    
+    // pop
+    fun pop():T?{
+        if(list.isEmpty()) {
+            return null
+        }
+        return list.removeAt(list.size - 1)
+    }
+    
+    //peek
+    fun peek():T?{
+        return list.lastOrNull()
+    }
+    
+    // empty
+    fun isEmpty():Boolean{
+        return list.isEmpty()
+    }
+    
+    fun printList(){
+      println(list)
+
+    }
+}
