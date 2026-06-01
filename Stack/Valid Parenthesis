@@ -1,0 +1,32 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+	val str = "()[]{]"
+      
+  print(solution(str))
+}
+
+fun solution(str:String) : Boolean{
+        val stack = ArrayDeque<Char>()
+
+     val map = mapOf(
+    ')' to '(',
+    '}' to '{',
+    ']' to '[')
+    
+    for(s in str){
+        when(s){
+            '(','{','[' -> stack.addLast(s)
+			else -> {
+                if(stack.isEmpty()) {return false}
+               val top = stack.removeLast()
+               if(top != map[s]){
+                   return false
+               }
+            }
+        }
+    }
+    return stack.isEmpty()
+}
