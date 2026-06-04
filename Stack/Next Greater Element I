@@ -1,0 +1,41 @@
+For every element X in nums1:
+
+Find X in nums2
+Start checking elements AFTER that index
+The first greater element is the answer
+If none exists → -1
+
+Example 1:
+
+Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
+
+Output: [-1,3,-1]
+
+Approach:
+1. Second Arr -> push to stack and check whether next element is greater
+- if found greater remove top element and map it e.g -> 1->3  (since current element 3 is greater than stack top 1)
+2. compare with First array -> and if value do not exist in map set -1 against the current element
+- e.g if 4 not consist in map then 4 -> -1
+
+Solution:
+class Solution {
+    fun nextGreaterElement(nums1: IntArray, nums2: IntArray): IntArray {
+        val result = IntArray(nums1.size)
+        val stack = ArrayDeque<Int>()
+        val map = mutableMapOf<Int,Int>()
+
+        for(i in nums2){
+            // remove top if current element is greater and map 
+            while(stack.isNotEmpty() && i > stack.last()){
+                val removed = stack.removeLast()
+                map[removed] = i // map top element with current
+            }
+            stack.addLast(i)
+        }
+       
+        for(i in nums1.indices){
+            result[i] = map[nums1[i]] ?: -1 // if not exist in map set -1
+        }
+        return result
+    }
+}
