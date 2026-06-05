@@ -32,3 +32,42 @@ class MinStack() {
  * var param_3 = obj.top()
  * var param_4 = obj.getMin()
  */
+
+
+Solution 2: Reducing extra space by using minValue globally
+class MinStack() {
+    val stack = ArrayDeque<Long>()
+    var minValue = Long.MAX_VALUE
+
+    fun push(`val`: Int) {
+        val x = `val`.toLong()
+        if(stack.isEmpty()){
+            stack.addLast(x)
+            minValue = x
+        }else if (x < minValue){
+            stack.addLast(2 * x - minValue)  // here we would push combination of old min value and current value (which is less than the minValue) e.g minValue = -2 and new value = -3 (-3 < -1) -> value is operated using maths formula  x = 2 * new value - old minValue 
+            minValue = x
+        }else{
+            stack.addLast(x)
+        }
+    }
+
+    fun pop() {
+       if(stack.last() < minValue){
+        minValue = 2 * minValue - stack.last()
+       }
+       stack.removeLast()
+    }
+
+    fun top(): Int {
+        if(stack.last() < minValue){
+            return minValue.toInt()
+        }else{
+            return stack.last().toInt()
+        }
+    }
+
+    fun getMin(): Int {
+        return minValue.toInt()
+    }
+}
