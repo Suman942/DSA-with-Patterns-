@@ -1,0 +1,27 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+	val nums = intArrayOf(10,4,8,3)
+	val answer = IntArray(nums.size)
+    var leftSum = 0
+    for(i in nums.indices){
+        answer[i] = leftSum
+        leftSum += nums[i]
+    }
+  
+    println("left: ${answer.toList()}")
+    
+    var rightSum = 0
+    for(i in nums.size - 1 downTo 0){
+        var diff = answer[i] - rightSum
+        if(diff < 0){
+            diff = -diff
+        }
+        answer[i] = diff
+        rightSum += nums[i] 
+    }
+        println("right: ${answer.toList()}")
+
+}
