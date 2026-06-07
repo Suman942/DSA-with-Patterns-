@@ -1,0 +1,27 @@
+fun main() {
+	val root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    
+    root.left?.left = TreeNode(4)
+    root.right?.right = TreeNode(5)
+    // recurrsive function
+    preOrder(root)
+}
+
+// Binary tree 
+class TreeNode(val data:Int){
+    var left:TreeNode?=null
+    var right:TreeNode?=null 
+}
+
+// print nodes with recurrsion 
+//1. first print the root -> then left and then the right
+fun preOrder(root:TreeNode?){
+    if(root == null) return
+    
+    println(root.data)
+    
+    preOrder(root.left)
+    preOrder(root.right)
+}
