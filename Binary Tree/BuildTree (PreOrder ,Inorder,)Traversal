@@ -1,0 +1,68 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+var idx = -1
+fun main() {
+    
+	val root = listOf(1,2,-1,-1,3,4,-1,-1,5,-1,-1)
+    val result = mutableListOf<Int>()
+    val node = buildTree(root)
+    println("result: ${node?.data}")
+    println()
+    println("PreOrder:")
+    preOrder(node)
+    println()
+    println("InOrder:")
+    inOrder(node)
+    println()
+    println("PostOrder:")
+    postOrder(node)
+}
+
+fun buildTree(root:List<Int>) : TreeNode?{
+    idx++
+    if(root[idx] == -1){
+        return null
+    }
+    val node = TreeNode(root[idx])
+    node.left = buildTree(root)
+    node.right = buildTree(root)
+    return node
+}
+
+class TreeNode(val data:Int){
+    var left:TreeNode?=null
+    var right:TreeNode?=null 
+}
+// root, left,right
+fun preOrder(root:TreeNode?){
+    if(root == null) return
+    print("${root.data}")
+    
+    preOrder(root.left)
+    preOrder(root.right)
+}
+
+// left,root,right
+fun inOrder(root:TreeNode?){
+    if(root == null) return
+    
+    // left traverse
+    inOrder(root.left)
+    // store
+	print(root.data)
+    //right traverse
+    inOrder(root.right)
+    
+}
+// left,right,root
+ fun postOrder(root:TreeNode?){
+        if(root == null) return
+        // left traverse
+        postOrder(root.left)
+        // right traverse
+        postOrder(root.right)
+        // store
+        print(root.data)
+    }
