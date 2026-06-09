@@ -1,0 +1,45 @@
+
+        1  -> level 0
+       / \
+      2   3 -> level 1
+         / \
+        4   5 -> level 2
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+var idx = -1
+fun main() {
+	val root = listOf(1,2,-1,-1,3,4,-1,-1,5,-1,-1)
+  	val rootNode = buildTree(root)
+    val queue = ArrayDeque<TreeNode?>()
+    queue.addLast(rootNode)
+    while(queue.isNotEmpty()){
+        val popNode = queue.removeFirst()
+        println("pop: ${popNode?.data}")
+        
+        if(popNode?.left != null){
+            queue.addLast(popNode.left)
+        }
+        if(popNode?.right != null){
+            queue.addLast(popNode.right)
+        }
+    }
+}
+
+fun buildTree(root:List<Int>) : TreeNode?{
+    idx++
+    if(root[idx] == -1)return null
+    println(root[idx])
+    
+    val node = TreeNode(root[idx])
+    node.left = buildTree(root)
+    node.right = buildTree(root)
+    
+    return node
+}
+
+class TreeNode(val data:Int){
+    var left : TreeNode? = null
+    var right : TreeNode? = null
+}
