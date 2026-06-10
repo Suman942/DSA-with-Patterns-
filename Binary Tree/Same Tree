@@ -1,0 +1,17 @@
+
+/**
+ * Definition for a binary tree node.
+ * class TreeNode(var `val`: Int) {
+ *     var left: TreeNode? = null
+ *     var right: TreeNode? = null
+ * }
+ */
+
+class Solution {
+    fun isSameTree(p: TreeNode?, q: TreeNode?): Boolean {
+        if(p == null || q == null) return p == q  // if one node is null other node has to be null
+        val isLeftSame = isSameTree(p.left,q.left) // left substree has to be identical
+        val isRightSame = isSameTree(p.right,q.right) // right subtree has to be identical
+        return isLeftSame && isRightSame && p.`val` == q.`val` // left subtree + right subtree + value of each node all has to be same
+    }
+}
