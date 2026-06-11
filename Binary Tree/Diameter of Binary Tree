@@ -1,10 +1,27 @@
 
 var idx = -1
+var diam = 0
 fun main() {
 	val root = listOf(1,2,-1,-1,3,4,-1,-1,5,-1,-1)
 	val node = buildTree(root)
-    print(diameter(node))
+	// brute forcea approach
+    diameter(node)
+
+	// optimal approach
+	print(height(root))
+	return diam  -> answer
 }
+
+// find height + optimal
+fun height(node:TreeNode?) : Int{
+    if(node == null) return 0
+    val left = height(node.left)
+    val right = height(node.right)
+    diam = maxOf((left + right),diam) -> calcute the height of current node and storing the max diameter
+    return maxOf(left,right) + 1
+}
+
+
 /* find diameter
 Condition: 1. May pass through root node 2. May not Pass through root node
 Approach:
@@ -21,14 +38,6 @@ fun diameter(node:TreeNode?):Int{
     return maxOf(lDiameter,rDiameter,currentDiameter)
 }
 
-// find height
-fun height(node:TreeNode?) : Int{
-    if(node == null) return 0
-    val left = height(node.left)
-    val right = height(node.right)
-    
-    return maxOf(left,right) + 1
-}
 
 // build your tree
 fun buildTree(root:List<Int>) : TreeNode?{
