@@ -1,0 +1,25 @@
+Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+
+         1
+      /   \
+     2     2
+    / \   / \
+   3   4 4   3
+
+Input: root = [1,2,2,3,4,4,3]
+Output: true
+
+class Solution {
+    fun isSymmetric(root: TreeNode?): Boolean {
+        if(root == null) return true
+      return  isMirror(root.left,root.right)
+    }
+
+    fun isMirror(left:TreeNode?,right:TreeNode?):Boolean{
+        if(left == null || right == null) {
+            return left == right
+        }
+      
+        return left.`val` == right.`val` && isMirror(left.left,right.right) &&   isMirror(left.right,right.left)
+    }
+}
