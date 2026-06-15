@@ -1,0 +1,28 @@
+/**
+ * Example:
+ * var li = ListNode(5)
+ * var v = li.`val`
+ * Definition for singly-linked list.
+ * class ListNode(var `val`: Int) {
+ *     var next: ListNode? = null
+ * }
+ */
+class Solution {
+    fun deleteMiddle(head: ListNode?): ListNode? {
+        if(head?.next == null) return null
+        var slow : ListNode? = head
+        var fast : ListNode? = head
+        var prev:ListNode? = head
+        // find middle
+        while(fast != null && fast.next != null){
+             prev = slow
+            slow = slow?.next
+            fast = fast.next?.next
+           
+        }
+
+        prev?.next = slow?.next
+        return head
+
+    }
+}
