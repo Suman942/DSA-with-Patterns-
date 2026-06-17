@@ -1,0 +1,30 @@
+Given a binary tree, return true if it is height-balanced and false otherwise.
+
+A height-balanced binary tree is defined as a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
+
+/**
+ * Definition for a binary tree node.
+ * class TreeNode(var `val`: Int) {
+ *     var left: TreeNode? = null
+ *     var right: TreeNode? = null
+ * }
+ */
+
+class Solution {
+    fun isBalanced(root: TreeNode?): Boolean {
+        if(root == null) return true
+        val mod = abs(height(root.left) - height(root.right))
+        if(mod > 1){
+            return false
+        }
+        return isBalanced(root.left) && isBalanced(root.right)
+    }
+  // get tree height 
+    fun height(root:TreeNode?):Int{
+        if(root == null) return 0
+        val left = height(root.left)
+        val right = height(root.right)
+
+        return maxOf(left,right) + 1
+    }
+}
