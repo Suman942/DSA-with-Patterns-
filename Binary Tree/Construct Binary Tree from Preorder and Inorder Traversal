@@ -1,0 +1,57 @@
+Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.
+
+       3
+      / \
+     9  20
+       /  \
+      15   7
+
+Input: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+Output: [3,9,20,null,null,15,7]
+
+
+/**
+ * Example:
+ * var ti = TreeNode(5)
+ * var v = ti.`val`
+ * Definition for a binary tree node.
+ * class TreeNode(var `val`: Int) {
+ *     var left: TreeNode? = null
+ *     var right: TreeNode? = null
+ * }
+ */
+class Solution {
+    var preIdx = -1
+    fun buildTree(preorder: IntArray, inorder: IntArray): TreeNode? {
+        // preorder -> root left right
+        // inorder -> left root right
+        
+       return helper(preorder,inorder,0,inorder.size - 1)
+    }
+
+    fun helper(preorder: IntArray, inorder: IntArray,left:Int,right:Int):TreeNode?{
+        if(left > right) return null
+        preIdx++
+        val node = TreeNode(preorder[preIdx])
+        // search node in inorder
+        val inIdx = search(inorder,left,right,preorder[preIdx])
+        // build left tree -> left of root in inorder 
+         node.left = helper(preorder,inorder,left,inIdx - 1)
+        // build right tree -> right of root in inorder 
+         node.right = helper(preorder,inorder,inIdx+1,right)
+
+         return node
+    }
+
+    fun search(inorder:IntArray,left:Int,right:Int,value:Int):Int{
+        var l = left
+        while(l <= right){
+            if(inorder[l] == value){
+                return l
+            }
+            l++
+        }
+
+        return -1
+    }
+}
