@@ -1,0 +1,25 @@
+Given a string text, you want to use the characters of text to form as many instances of the word "balloon" as possible.
+
+You can use each character in text at most once. Return the maximum number of instances that can be formed.
+
+Example 1:
+Input: text = "nlaebolko"
+Output: 1
+
+Solution:
+class Solution {
+    fun maxNumberOfBalloons(text: String): Int {
+        val arr = IntArray(26)
+        for(ch in text){
+            arr[ch - 'a']++
+        }
+
+        return minOf(
+            arr['b' - 'a'],
+            arr['a' - 'a'],
+            arr['l' - 'a'] / 2,
+            arr['o' - 'a'] / 2,
+            arr['n' - 'a']
+        )
+    }
+}
