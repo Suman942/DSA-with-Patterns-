@@ -8,6 +8,21 @@ fun main() {
  val node = buildBST(root)
   // traverse in order
  inorder(node)
+// search if value exist
+search(node,5)
+}
+
+fun search(node:Node?,key:Int):Boolean{
+    if(node == null) return false
+    if(node.data == key){
+        return true
+    }
+    return if(key < node.data){
+        search(node.left,key)
+    }else{
+        search(node.right,key)
+    }
+    
 }
 
 fun buildBST(arr:IntArray): Node?{
