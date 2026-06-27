@@ -65,26 +65,31 @@ class Solution {
 Solution 2:
 class Solution {
     fun characterReplacement(s: String, k: Int): Int {
-        val arr = IntArray(26)
-        var left = 0
+        var i = 0
         var maxFreq = 0
-        var result = 0
+        var maxlen = 0
+        val freq = IntArray(26)
 
-        for(right in s.indices){
-            // store frequency
-           arr[s[right] - 'A']++ 
-            // get max frequency
-            maxFreq = maxOf(maxFreq,arr[s[right] - 'A'])
+        for(j in s.indices){
+            // store the frequency of new character
+            val index = s[j] - 'A'
+            freq[index]++
+            // store the maximum freq of new character
+            maxFreq = maxOf(maxFreq,freq[index])
             // window size
-            var windowSize = right - left + 1
-
+            val windowSize = j - i + 1
+            /*
+                1. check the replacement required
+                replacement = windowSize - maxFrequency
+                2. if replacement is greater thean "K" then shrink window
+             */
             if(windowSize - maxFreq > k){
-                arr[s[left] - 'A']--
-                left++
+                freq[s[i] - 'A']--
+                i++
             }
-            result = maxOf(result,right - left + 1)
+            // shore the max length of the window
+            maxlen = maxOf(maxlen,(j-i+1))
         }
-
-        return result
+        return maxlen
     }
 }
