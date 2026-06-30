@@ -1,0 +1,78 @@
+Example 1:
+
+Input: s = "abcabc"
+Output: 10
+Explanation: The substrings containing at least one occurrence of the characters a, b and c are "abc", "abca", "abcab", "abcabc", "bca", "bcab", "bcabc", "cab", "cabc" and "abc" (again).
+
+Algorithm:
+Expand right
+        ↓
+Window becomes valid
+        ↓
+Count += n - right
+        ↓
+Shrink from the left
+        ↓
+Is the window still valid?
+        ↓
+Yes → Count += n - right again
+        ↓
+Shrink again
+        ↓
+No → Stop shrinking
+        ↓
+Expand right again
+
+
+Solution:
+
+class Solution {
+    fun numberOfSubstrings(s: String): Int {
+        var count = 0
+        var left = 0
+        var cA = 0 // count freq of a
+        var cB = 0 // count freq of b
+        var cC = 0 // count freq of c
+
+        for(right in 0 until s.length){
+            // expanding right and counting freq
+            when{
+                s[right] == 'a' -> cA++
+                s[right] == 'b' -> cB++
+                s[right] == 'c' -> cC++
+            }
+            // checking window is valid
+            while(cA > 0 && cB > 0 && cC > 0){
+                // count the number of substring
+                /*
+                Suppose:
+                    left = 0
+                    right = 3
+                    Window = "abca"
+                    How many valid substrings start at left = 0 and have an ending index ≥ right?
+                    So the substrings are:
+
+                    abca
+                    abcab
+                    abcabc
+                    Using the formula:
+
+                    n - right
+                    = 6 - 3
+                    = 3
+                 */
+                count += s.length - right
+                // shrink the window
+                when{
+                    s[left] == 'a' -> cA--
+                    s[left] == 'b' -> cB--
+                    s[left] == 'c' -> cC--
+                }
+                // left moves ahead
+                left++
+            }
+        }
+
+        return count
+    }
+}
