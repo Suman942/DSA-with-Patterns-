@@ -1,0 +1,127 @@
+Note: In BST 
+-> left of root is small than root
+-> right of root is greater than root
+-> inorder traversal is always sorted
+
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+	val root = intArrayOf(3,2,1,5,4,6)
+    val k = 5
+    val node = buildBST(root)
+    // traverse
+    inorder(node)
+    // search
+    search(node,k)
+    // delete node
+	delete(node,k)
+	// traverse
+    inorder(node)
+}
+// delete node
+fun delete(root:Node?,k:Int):Node?{
+    if(root == null) return null
+    if(k == root.data){
+        /* 
+         * 1. no child (k)
+         * delete node 
+         * return null
+         * 2. single child
+         * delete k node
+         * return non null child 
+         * 3. 2 children
+         * find inorder successor (left, root , right) -> we will be taking the "smallest" node in right subtree
+         * replace "root" node with "right" node
+         * delete right
+         */
+        
+        // 1. No child
+        if(root.left == null && root.right == null){
+            return null
+        }
+        
+        // 2. single child
+			if(root.left == null){
+                return root.right
+            }
+            if(root.right == null){
+                return root.left
+            }
+            
+       // 3. 2 children
+        // find inorder successor
+        var iS = inorderSuccessor(root.right!!)
+        // replace "root" node with "iS" node
+        root.data = iS.data
+        // delete iS
+       	root.right = delete(root.right,iS.data)
+        
+        
+    }else if ( k < root.data){
+        root.left = delete(root.left,k)
+    }else{
+        root.right = delete(root.right,k)
+    }
+    
+    return root
+}
+
+// find inorder successor
+fun inorderSuccessor(node:Node):Node{
+    var current = node
+    while(current.left != null){
+        current = current.left!!
+    }
+    return current
+}
+
+// search element in BST
+fun search(root:Node?,k:Int):Node?{
+    if(root == null) return null
+    if(k == root.data){
+        return root
+    }
+   return if(k < root.data){
+         search(root.left,k)
+    }else{
+        search(root.right,k)
+    }
+    
+}
+
+// build tree
+fun buildBST(root:IntArray):Node?{
+    var node:Node?= null
+    for(i in root){
+        node = insert(node,i)
+    }
+    return node
+}
+// insert into tree
+fun insert(root:Node?,value:Int):Node?{
+    if(root == null) return Node(value)
+    
+    if(value < root.data){
+       root.left = insert(root.left,value)
+    }else{
+        root.right = insert(root.right,value)
+    }
+    
+    return root
+}
+
+// traversal
+fun inorder(node:Node?){
+    if(node == null) return 
+   	inorder(node.left)
+    print(node.data)
+    inorder(node.right)
+    
+}
+
+class Node(var data:Int){
+    var left:Node?= null
+    var right:Node?= null
+}
