@@ -1,0 +1,36 @@
+Given an integer array nums where the elements are sorted in ascending order, convert it to a height-balanced binary search tree.
+
+Input: nums = [-10,-3,0,5,9]
+Output: [0,-3,9,-10,null,5]
+Explanation: [0,-10,5,null,-3,null,9] is also accepted:
+
+/**
+ * Example:
+ * var ti = TreeNode(5)
+ * var v = ti.`val`
+ * Definition for a binary tree node.
+ * class TreeNode(var `val`: Int) {
+ *     var left: TreeNode? = null
+ *     var right: TreeNode? = null
+ * }
+ */
+class Solution {
+    fun sortedArrayToBST(nums: IntArray): TreeNode? {
+        // [-10,-3,0,5,9]
+         val left = 0 
+         val right = nums.size - 1 // 4
+         
+      return buildBST(left,right,nums)
+    }
+    fun buildBST(left:Int,right:Int,nums:IntArray):TreeNode?{ //l = 0, , r = 2
+         if(left > right) return null
+
+        val mid = ((left + right) / 2)  // 2, 1
+        val root = TreeNode(nums[mid]) //0,-3
+        root.left = buildBST(left,mid - 1,nums)
+        root.right = buildBST(mid+1,right,nums)
+        return root
+    }
+   
+    
+}
