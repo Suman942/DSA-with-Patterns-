@@ -1,0 +1,45 @@
+Given the root of a binary tree, determine if it is a valid binary search tree (BST).
+
+A valid BST is defined as follows:
+
+The left subtree of a node contains only nodes with keys strictly less than the node's key.
+The right subtree of a node contains only nodes with keys strictly greater than the node's key.
+Both the left and right subtrees must also be binary search trees.
+
+
+With Extra Space
+/**
+ * Example:
+ * var ti = TreeNode(5)
+ * var v = ti.`val`
+ * Definition for a binary tree node.
+ * class TreeNode(var `val`: Int) {
+ *     var left: TreeNode? = null
+ *     var right: TreeNode? = null
+ * }
+ */
+class Solution {
+    fun isValidBST(root: TreeNode?): Boolean {
+        val result = mutableListOf<Int>()
+        inOrder(root,result)
+        if(result.isEmpty()) return true
+        // check the list is strictly sorted to increasing order with no duplicates
+        for(i in 1 until result.size){
+            if(result[i] <= result[i - 1]){
+                return false
+            }
+        }
+        return true
+    }
+
+    
+    fun inOrder(root:TreeNode?,result:MutableList<Int>){
+        if(root == null) return
+        
+        inOrder(root.left,result)
+        // print root data
+        result.add(root.`val`)
+        inOrder(root.right,result)
+    }
+
+}
