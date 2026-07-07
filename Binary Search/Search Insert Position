@@ -21,6 +21,8 @@ class Solution {
         if value is smaller than target
             -> move to left half
         if equal return   
+
+        if none of the condition is true means target do not exist then return the position when the target should be i.e low
        */ 
 
        var low = 0
