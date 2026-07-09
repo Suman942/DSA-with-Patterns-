@@ -1,0 +1,36 @@
+Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must be unique and you may return the result in any order.
+
+Note: The intersection of two arrays is defined as the set of elements that are present in both arrays.
+
+Example 1:
+
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+
+Output: [2]
+
+Solution:
+class Solution {
+    fun intersection(nums1: IntArray, nums2: IntArray): IntArray {
+        val set = mutableSetOf<Int>()
+        nums2.sort()
+        for(num in nums1){
+            var l = 0
+            var r = nums2.size -1
+            while(l <= r){
+                val mid =l+ (r - l)/2
+                if(nums2[mid] == num){
+                    set.add(num)
+                    break
+                }
+                if(nums2[mid] < num){
+                    l = mid + 1
+                }else{
+                    r = mid - 1
+                }
+
+            }
+        }
+
+        return set.toIntArray()
+    }
+}
