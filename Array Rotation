@@ -1,0 +1,48 @@
+1. Left rotation
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+	val nums = intArrayOf(10, 20, 30, 40, 50)
+    val k = 2
+	//	output  [30, 40, 50, 10, 20]
+    
+    var arr = IntArray(nums.size)  
+    var j = 0
+    for(i in k until nums.size){
+         arr[j] = nums[i]
+        j++
+    }
+    println(arr.toList())
+	
+	for(i in 0 until k ){
+        arr[j] = nums[i]
+       	j++        
+    }
+        println(arr.toList())
+
+}
+
+
+
+2. Right rotation
+class Solution {
+    fun rotate(nums: IntArray, k: Int): Unit {
+        val shift = k % nums.size
+        val arr = IntArray(nums.size)
+        var j = 0
+        for(i in nums.size - shift until nums.size){
+            arr[j] = nums[i]
+            j++
+        }
+        for(i in 0 until nums.size - shift){
+            arr[j] = nums[i]
+            j++
+        }
+
+        for (i in nums.indices) {
+            nums[i] = arr[i]
+        }
+    }
+}
