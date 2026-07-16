@@ -1,0 +1,23 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+	val nums = intArrayOf(10, 20, 30, 40, 50)
+    val n = nums.size
+    val k = 2    
+   	var  shift = k % n
+    println("shift: $shift")
+    var j = 0
+    println("range: ${n - shift}")
+    val ans = IntArray(n)
+    for(i in n - shift until n){
+        ans[j] = nums[i]
+        j++
+    }
+    
+    for(i in 0 until n-shift){
+       ans[j] = nums[i]
+        j++ 
+    }
+}
