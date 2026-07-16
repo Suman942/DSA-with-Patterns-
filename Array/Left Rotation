@@ -26,23 +26,3 @@ fun main() {
 
 
 
-2. Right rotation
-class Solution {
-    fun rotate(nums: IntArray, k: Int): Unit {
-        val shift = k % nums.size
-        val arr = IntArray(nums.size)
-        var j = 0
-        for(i in nums.size - shift until nums.size){
-            arr[j] = nums[i]
-            j++
-        }
-        for(i in 0 until nums.size - shift){
-            arr[j] = nums[i]
-            j++
-        }
-
-        for (i in nums.indices) {
-            nums[i] = arr[i]
-        }
-    }
-}
