@@ -1,0 +1,43 @@
+Example 1:
+
+Input: nums = [4,5,6,7,0,1,2], target = 0
+Output: 4
+Example 2:
+
+Input: nums = [4,5,6,7,0,1,2], target = 3
+Output: -1
+
+class Solution {
+    fun search(nums: IntArray, target: Int): Int {
+        val n = nums.size
+        var left = 0
+        var right = n - 1
+
+        while(left <= right){
+            val mid = left + (right - left)/2
+            // target found
+            if(nums[mid] == target){
+                return mid
+            }
+
+            // is left array sorted?
+            if(nums[left] <= nums[mid]){
+                // does the target lies between left and mid
+                    if(nums[left] <= target && target < nums[mid]){
+                        right = mid -1
+                    }else{
+                        left =  mid + 1
+                    }
+            }else{
+                // right array is sorted
+                // does the target lies betweent the mid and right
+                if(nums[mid] < target && target <= nums[right]){
+                    left = mid+1
+                }else{
+                    right = mid -1
+                }
+            }
+        }
+        return -1
+    }
+}
