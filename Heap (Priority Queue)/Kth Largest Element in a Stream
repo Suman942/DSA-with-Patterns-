@@ -1,0 +1,34 @@
+class KthLargest(k: Int, nums: IntArray) {
+    val heap = PriorityQueue<Int>()
+    private val limit = k
+    init{
+       // Add all initial numbers
+        for (num in nums) {
+            heap.add(num)
+
+            // Keep only the k largest elements
+            if (heap.size > limit) {
+                heap.poll()
+            }
+        }
+    }
+    fun add(`val`: Int): Int {
+       // Add the new value
+        heap.add(`val`)
+
+        // Remove the smallest if heap exceeds size k
+        if (heap.size > limit) {
+            heap.poll()
+        }
+
+        // The root is the kth largest element
+        return heap.peek()
+    }
+
+}
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * var obj = KthLargest(k, nums)
+ * var param_1 = obj.add(`val`)
+ */
