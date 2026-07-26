@@ -1,0 +1,61 @@
+You are given a positive integer num. You may swap any two digits of num that have the same parity (i.e. both odd digits or both even digits).
+
+Return the largest possible value of num after any number of swaps.
+
+ 
+
+Example 1:
+
+Input: num = 1234
+Output: 3412
+Explanation: Swap the digit 3 with the digit 1, this results in the number 3214.
+Swap the digit 2 with the digit 4, this results in the number 3412.
+Note that there may be other sequences of swaps but it can be shown that 3412 is the largest possible number.
+Also note that we may not swap the digit 4 with the digit 1 since they are of different parities.
+
+Algorithm:
+Convert num to its digits.
+Traverse the digits once:
+If digit is even, push into evenMaxHeap.
+If digit is odd, push into oddMaxHeap.
+Traverse the digits again:
+If current digit is even → poll() from evenMaxHeap.
+Else → poll() from oddMaxHeap.
+Build the answer.
+
+
+class Solution {
+    fun largestInteger(num: Int): Int {
+        val oddHeap = PriorityQueue<Int>(compareByDescending{it})
+        val evenHeap = PriorityQueue<Int>(compareByDescending{it})
+        val digits = num.toString().map{it - '0'}
+        
+
+        for(digit in digits){
+        
+            if(digit % 2 == 0){
+                // even
+                evenHeap.add(digit)
+            }else{
+                // odd
+                oddHeap.add(digit)
+            }
+        
+        }
+
+        var ans = 0
+        for(digit in digits){
+    
+            ans = ans * 10
+            if(digit % 2 == 0){
+                 ans += evenHeap.poll()
+            }else{
+                 ans += oddHeap.poll()
+            }
+           
+        }
+            return ans
+
+    }
+
+}
