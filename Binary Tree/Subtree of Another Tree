@@ -1,0 +1,37 @@
+Problem : Find whether subroot is a part of the root
+
+Input: root = [1,2,3,4,5], subRoot = [2,4,5]
+Output: true
+
+Input: root = [1,2,3,4,5,null,null,6], subRoot = [2,4,5]
+Output: false
+
+Algorithm:
+1. root == null return false
+2. each root node can be the potential subroot
+-> so find whether the current node is sametree
+-> is its same tree then return true
+-> else look for left node or right node
+
+class Solution{
+   fun isSubtree(root:TreeNode?,subRoot:TreeNode?):Boolean{
+      // if root is null -> return false
+      if(root == null) return
+      // is same tree
+      if(isSameTree(root,subRoot)) return true
+      // if not same -> look for left node or right node
+      return isSubtree(root.left,subRoot) || isSubtree(root.right,subRoot)
+   }
+
+   fun isSameTree(root:TreeNode?,subRoot:TreeNode?):Boolean{
+      if(root == null && subRoot == null) return true
+      if(root == null || subRoot == null) return false
+      if(root.`val` != subRoot.`val`) return false
+
+      val left = isSameTree(root.left,subRoot.left)
+      val right = isSameTree(root.right,subRoot.right)
+
+      return left && right
+   }
+}
+
