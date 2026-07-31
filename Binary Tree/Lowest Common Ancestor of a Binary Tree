@@ -13,9 +13,41 @@ Example 1:
    6   2 0   8
       / \
      7   4
+LCA of 5 and 1 = 3
+LCA of 5 and 4 = 5
 
 Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
 Output: 3
+
+Algorithm LCA(root, p, q)
+
+1. If root is NULL
+      return NULL
+
+2. If root == p OR root == q
+      return root
+
+3. Recursively search the left subtree
+      left = LCA(root.left, p, q)
+
+4. Recursively search the right subtree
+      right = LCA(root.right, p, q)
+
+5. If both left and right are NOT NULL
+      return root
+      // One node found in left subtree
+      // One node found in right subtree
+      // Current node is the Lowest Common Ancestor
+
+6. If left is NOT NULL
+      return left
+      // Both nodes are in the left subtree
+      // or LCA already found in the left subtree
+
+7. Otherwise
+      return right
+      // Both nodes are in the right subtree
+      // or LCA already found in the right subtree
 
 
 /**
