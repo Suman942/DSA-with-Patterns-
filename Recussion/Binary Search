@@ -1,0 +1,30 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+
+fun main() {
+	val nums = intArrayOf(-1,0,3,5,9,12)
+    val target = 10
+    val left = 0
+    val right = nums.size - 1
+    println(search(nums,target,left,right))
+    
+}
+
+fun search(nums:IntArray,target:Int,left:Int,right:Int):Int{
+    
+    if(left > right) return -1
+   
+    val mid = left + (right - left) / 2
+    if(nums[mid] == target){
+        return mid
+    }    
+    if(nums[mid] > target){
+        return search(nums,target,left,mid - 1)
+    }else{
+        return search(nums,target,mid + 1,right)
+    }
+    
+  
+}
