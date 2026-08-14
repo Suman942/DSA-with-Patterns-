@@ -1,0 +1,45 @@
+You are given an array nums of integers, which may contain duplicates. Return all possible subsets.
+
+The solution must not contain duplicate subsets. You may return the solution in any order.
+
+Example 1:
+
+Input: nums = [1,2,1]
+
+Output: [[],[1],[1,2],[1,1],[1,2,1],[2]]
+
+
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+val result = mutableListOf<List<Int>>()
+fun main() {
+	val nums = intArrayOf(1,2,2)
+    val ans = mutableListOf<Int>()
+    val i = 0
+    nums.sort()
+    
+    subset(nums,ans,i)
+    
+    println(result.toList())
+}
+
+fun subset(nums:IntArray,ans:MutableList<Int>,i:Int){
+    
+    if(i == nums.size){
+        result.add(ans.toList())
+        return
+    }
+    
+    ans.add(nums[i])
+    subset(nums,ans,i+1)
+    
+    ans.removeAt(ans.lastIndex)
+    
+    var idx = i + 1
+    while(idx < nums.size && nums[i] == nums[idx]){
+        idx++
+    }
+    subset(nums,ans,idx)
+}
