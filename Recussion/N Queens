@@ -1,0 +1,84 @@
+The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.
+
+Given an integer n, return all distinct solutions to the n-queens puzzle. You may return the answer in any order.
+
+Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space, respectively.
+
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+    val n = 4
+	val board = MutableList(n){MutableList(n){"."}}
+   	var row = 0
+    val answer = mutableListOf<List<String>>()
+    
+    nQueens(board,row,n,answer)
+    
+    println(answer)
+}
+// step 1
+fun nQueens(board:MutableList<MutableList<String>>,row:Int,n:Int,answer:MutableList<List<String>>){
+    if (n == row) {
+        val solution = board.map { it.joinToString("") }
+        answer.add(solution)
+        return
+	}
+    
+    for(col in 0 until n){
+        
+        if(isSafe(board,row,col,n)){
+           board[row][col] = "Q"  // place queen 
+           nQueens(board,row+1,n,answer) //next row
+           
+           board[row][col] = "."  // backtrack
+        }
+    }
+}
+// step 2 
+/* check horizontally -> no queen must exist in current row
+ * check vertically -> no queen must exist in current column
+ * check diagonally -> no queen must exist diagonally
+ * */
+fun isSafe(board:MutableList<MutableList<String>>,row:Int,col:Int,n:Int):Boolean{
+    // check horizontal
+    for(c in 0 until n){
+        if(board[row][c] == "Q"){
+            return false
+        }
+    }
+    
+    // check vertically
+    for(r in 0 until n){
+        if(board[r][col] == "Q") {
+            return false
+        }
+    }
+    
+    // check diagonally
+	// left diagonal 
+    var rL = row - 1
+    var cL = col - 1
+		
+    while(rL >= 0 && cL >= 0){
+        if(board[rL][cL] == "Q"){
+            return false
+        }
+        rL--
+        cL--
+    }
+    
+    // right digonal
+    var rR = row - 1
+    var cR = col + 1
+    while (rR >= 0 && cR < n){
+        if(board[rR][cR] == "Q"){
+            return false
+        }
+        rR--
+        cR++
+    }
+    
+    return true
+}
