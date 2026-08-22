@@ -1,0 +1,107 @@
+Write a program to solve a Sudoku puzzle by filling the empty cells.
+
+A sudoku solution must satisfy all of the following rules:
+
+Each of the digits 1-9 must occur exactly once in each row.
+Each of the digits 1-9 must occur exactly once in each column.
+Each of the digits 1-9 must occur exactly once in each of the 9 3x3 sub-boxes of the grid.
+The '.' character indicates empty cells.
+
+
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+	val board = arrayOf(
+        charArrayOf('5', '3', '.', '.', '7', '.', '.', '.', '.'),
+        charArrayOf('6', '.', '.', '1', '9', '5', '.', '.', '.'),
+        charArrayOf('.', '9', '8', '.', '.', '.', '.', '6', '.'),
+        charArrayOf('8', '.', '.', '.', '6', '.', '.', '.', '3'),
+        charArrayOf('4', '.', '.', '8', '.', '3', '.', '.', '1'),
+        charArrayOf('7', '.', '.', '.', '2', '.', '.', '.', '6'),
+        charArrayOf('.', '6', '.', '.', '.', '.', '2', '8', '.'),
+        charArrayOf('.', '.', '.', '4', '1', '9', '.', '.', '5'),
+        charArrayOf('.', '.', '.', '.', '8', '.', '.', '7', '9')
+	)
+    
+    val row = 0
+    val col = 0
+    
+      solve(board,row,col)
+      
+	board.forEach {
+    	println(it.concatToString())
+	}
+}
+
+fun solve(board:Array<CharArray>,row:Int,col:Int) : Boolean{
+    
+   	// reached the end of sudoku i.e last cell -> solved successfully
+    if(row == 9){
+        return true
+    }
+    // when column recheas last cell increase the row and rest col
+    var nextRow = row
+    var nextCol = col + 1
+    if(nextCol == 9){
+        nextRow = row + 1
+        nextCol = 0
+    }
+    // current cell has value solve next cell
+    if(board[row][col] != '.'){
+        return solve(board,nextRow,nextCol)
+    }
+    // look for suitable value 
+    for(digit in '1'..'9'){
+        // if safe -> horizontal , vertical and grid
+        if(isSafe(board,row,col,digit)){
+            board[row][col] = digit
+            // if next cell value can't be placed -> backtrack required
+        	if(solve(board,nextRow,nextCol)){
+                return true
+            }
+            
+            // backtrack 
+            board[row][col] = '.'
+        }
+    }
+    
+    return false
+}
+
+/*
+ * check horizontal
+ * check veritical
+ * check grid
+ * */
+
+fun isSafe(board:Array<CharArray>,row:Int,col:Int,digit:Char):Boolean{
+    // check horizontal
+    for(col in 0 until 9){
+        if(board[row][col] == digit){
+            return false
+        }
+    }
+    
+    // check veritical
+    for(row in 0 until 9){
+        if(board[row][col] == digit){
+            return false
+        }
+    }
+    
+    // grid
+    var startingRow = (row/3)*3
+    var startingCol = (col/3)*3
+    
+    for(sr in startingRow..startingRow+2){
+        for(sc in startingCol..startingCol+2){
+            if(board[sr][sc] == digit){
+                return false
+            }
+        }
+    }
+    
+    return true
+}
