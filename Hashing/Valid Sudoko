@@ -1,0 +1,51 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+	val board = arrayOf(
+        charArrayOf('5', '3', '.', '.', '7', '.', '.', '.', '.'),
+        charArrayOf('6', '.', '.', '1', '9', '5', '.', '.', '.'),
+        charArrayOf('.', '9', '8', '.', '.', '.', '.', '6', '.'),
+        charArrayOf('8', '.', '.', '.', '6', '.', '.', '.', '3'),
+        charArrayOf('4', '.', '.', '8', '.', '3', '.', '.', '1'),
+        charArrayOf('7', '.', '.', '.', '2', '.', '.', '.', '6'),
+        charArrayOf('.', '6', '.', '.', '.', '.', '2', '8', '.'),
+        charArrayOf('.', '.', '.', '4', '1', '9', '.', '.', '5'),
+        charArrayOf('.', '.', '.', '.', '8', '.', '.', '7', '9')
+	)
+    
+  	println(isValid(board))
+}
+
+fun isValid(board:Array<CharArray>):Boolean{
+     val rows = Array(9){mutableSetOf<Char>()}
+    val columns = Array(9){mutableSetOf<Char>()}
+    val grids = Array(9){mutableSetOf<Char>()}
+		
+     for(row in 0..8){
+         for(col in 0..8){
+            val element = board[row][col] 
+            if(element == '.') continue
+            
+            val startRow = (row/3) * 3 
+            val startCol = (col/3) 
+            val cell = startRow + startCol  // find exact cell in 3x3 grid
+             
+            //check row
+             if(element in rows[row]) return false
+             
+            //check column
+             if(element in columns[col]) return false
+
+            // check grid
+             if(element in grids[cell]) return false
+
+             // add values to the set
+             rows[row].add(element)
+             columns[col].add(element)
+             grids[cell].add(element)
+         }
+     }
+     return true
+}
