@@ -1,0 +1,88 @@
+You are given a matrix where:
+
+1 → the rat can move through this cell
+0 → blocked cell
+Start = (0,0)
+Destination = (n-1,n-1)
+
+For example:
+
+1 0 0 0
+1 1 0 1
+1 1 0 0
+0 1 1 1
+
+The rat starts here:
+
+↓
+1 0 0 0
+1 1 0 1
+1 1 0 0
+0 1 1 1
+and needs to reach:
+1 0 0 0
+1 1 0 1
+1 1 0 0
+0 1 1 1
+      ↑
+   destination
+
+A valid path is:
+
+D → D → R → D → R → R
+
+So the answer is:
+
+DDRDRR
+
+
+
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+    val maze = arrayOf(
+        intArrayOf(1, 0, 0, 0),
+        intArrayOf(1, 1, 0, 1),
+        intArrayOf(1, 1, 0, 0),
+        intArrayOf(0, 1, 1, 1)
+	)
+    val visited = Array(maze.size){BooleanArray(maze.size)}
+    val answer = mutableListOf<String>()
+    
+    getPath(maze,0,0,"",answer,visited)
+    
+    println(answer)
+}
+
+fun getPath(maze:Array<IntArray>,r:Int,c:Int,path:String,answer:MutableList<String>,visited:Array<BooleanArray>){
+    val n = maze.size
+    
+   
+    if(r < 0 || c < 0 || r >= n || c >= n || maze[r][c] == 0 || visited[r][c] == true){
+        return
+    }
+    
+    if(r == n-1 && c == n - 1){
+        //store result
+        answer.add(path)
+        return
+    }
+    visited[r][c] = true
+    
+     //down
+    getPath(maze,r+1,c,path+"D",answer,visited)
+    
+    // up
+    getPath(maze,r-1,c,path+"U",answer,visited)
+    
+    //left
+    getPath(maze,r,c-1,path+"L",answer,visited)
+    
+    //right
+    getPath(maze,r,c+1,path+"R",answer,visited)
+    
+    // backtack (for all possible outcomes) else not required
+    visited[r][c] = false
+}
