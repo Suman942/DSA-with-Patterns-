@@ -1,0 +1,57 @@
+Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.
+
+Example 1:
+
+Input: s = "aab"
+Output: [["a","a","b"],["aa","b"]]
+Example 2:
+
+Input: s = "a"
+Output: [["a"]]
+
+
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+	val s = "aab"
+   	val partition = mutableListOf<String>()
+    val answer = mutableListOf<List<String>>()
+    getAllParts(s,partition,answer)
+    
+    println(answer)
+}
+
+fun getAllParts(s:String,partition:MutableList<String>,answer:MutableList<List<String>>){
+    
+    if(s.length == 0){
+        answer.add(partition.toList())
+        return
+    }
+    
+    for(i in 0 until s.length){
+        val part = s.substring(0,i+1)
+        
+        if(isPalin(part)){
+            partition.add(part)
+            
+            getAllParts(s.substring(i+1),partition,answer)
+            
+            partition.removeAt(partition.lastIndex)
+        }
+    }
+}
+
+fun isPalin(str:String):Boolean{
+    var i = 0
+    var j = str.length - 1
+    while(i < j){
+        if(str[i] != str[j]){
+            return false
+        }
+        i++
+        j--
+    }
+    return true
+}
