@@ -1,0 +1,88 @@
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+ 	val n1 = Node(1)
+    val n2 = Node(2)
+    val n3 = Node(3)
+    val n4 = Node(4)
+    
+    n4.next = n3
+    n3.next = n2
+    n2.next = n1
+    
+    var current :Node? = n4
+   	ms(current)
+}
+
+fun ms(node:Node?) : Node?{
+    if(node == null || node.next == null) return node
+    
+    
+    // find the middle
+    var fast : Node?= node
+    var slow : Node?= node
+    var prev : Node? = null
+    while(fast != null && fast.next != null ){
+        prev = slow
+        slow = slow?.next
+        fast = fast?.next?.next
+    }
+    
+    
+    // split 
+    prev?.next = null
+    
+    var left = node
+    var right = slow
+    
+    // left 
+   val lMs = ms(left)
+    
+    //right
+   val rMs = ms(right)
+    
+    // merge
+   val result = merge(lMs,rMs)
+   var temp = result
+   while(temp != null){
+       println(temp.data)
+       temp = temp.next
+   }
+   
+   return result
+}
+
+fun merge(left:Node?,right:Node?) : Node?{
+    val dummy = Node(0)
+    var current = dummy
+    var l = left
+    var r = right
+    while(l != null && r != null){
+        if(l.data <= r.data){
+            current.next = l
+            l = l.next
+        }else{
+            current.next = r
+            r = r.next
+        }
+    	current = current.next!!
+    }
+    
+    // remaining left
+    if(l != null){
+        current.next = l
+    }
+    
+     // remaining right
+    if(r != null){
+        current.next = r
+    }
+    
+    return dummy.next
+}
+
+class Node(val data :Int){
+    var next:Node?= null
+}
