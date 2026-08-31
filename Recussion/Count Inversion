@@ -1,0 +1,75 @@
+arr = [6,3,5,2,7]
+Condition
+1. i < j
+2. arr[i] > arr[j]
+
+Optimal Solution:
+
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+
+fun main() {
+	val nums = intArrayOf(6,3,5,2,7)
+    
+  val op =  ms(nums,0,nums.size - 1)
+    
+    println(op)
+}
+
+fun ms(arr:IntArray,left:Int,right:Int) :Int{
+    if(left == right){
+        return 0
+    }
+    
+    //find mid
+    val mid = left + (right - left) / 2
+    
+    // left sub array
+  val leftCountInversion = ms(arr,left,mid)
+    
+    // right sub array
+  val rightCountInversion = ms(arr,mid + 1, right)
+    
+    // merge both sub array
+  val currentInvCount =  merge(arr,left,mid,right)
+  
+  return leftCountInversion + rightCountInversion + currentInvCount
+}
+
+fun merge(arr:IntArray,left:Int,mid:Int,right:Int) :Int{
+    var l = left
+    var r = mid + 1
+    val temp = mutableListOf<Int>()
+    var count = 0
+
+    while(l <= mid && r <= right){
+       if(arr[l] <= arr[r]){
+           temp.add(arr[l])
+           l++
+       }else{
+           temp.add(arr[r])
+           r++
+           count += mid - l + 1
+           
+       }
+       
+    }
+    
+    while(l <= mid){
+         temp.add(arr[l])
+           l++
+    }
+    
+    while(r <= right){
+         temp.add(arr[r])
+           r++
+    }
+    
+    for(i in temp.indices){
+        arr[left + i] = temp[i]
+    }
+    
+    return count
+}
