@@ -1,0 +1,60 @@
+
+There is a knight on an n x n chessboard. In a valid configuration, the knight starts at the top-left cell of the board and visits every cell on the board exactly once.
+
+You are given an n x n integer matrix grid consisting of distinct integers from the range [0, n * n - 1] where grid[row][col] indicates that the cell (row, col) is the grid[row][col]th cell that the knight visited. The moves are 0-indexed.
+
+Return true if grid represents a valid configuration of the knight's movements or false otherwise.
+
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+val grid = arrayOf(
+            intArrayOf(0, 11, 16, 5, 20),
+            intArrayOf(17, 4, 19, 10, 15),
+            intArrayOf(12, 1, 8, 21, 6),
+            intArrayOf(3, 18, 23, 14, 9),
+            intArrayOf(24, 13, 2, 7, 22)
+        )
+  
+        
+        /*
+         *  1. r-2,c+1
+         * 2. r-1, c+2
+         * 3. r+1,c+2
+         * 4. r+2, c+1
+         * 5. r+2, c-1
+         * 6. r+1,c-2
+         * 7. r-1, c-2
+         * 8. r-2, c-1
+         */ 
+         
+       val result =  isValid(grid,0,0,grid.size,0)
+       
+       println(result)
+}
+
+fun isValid(grid:Array<IntArray>,r:Int,c:Int,n:Int,expValue:Int):Boolean{
+    if(r<0 || c<0 || r >= n || c>= n || grid[r][c] != expValue){
+        return false
+    }
+    
+    if(grid[r][c] == n * n - 1){
+        return true
+    }
+    
+    val ans1 = isValid(grid,r-2,c+1,grid.size,expValue+1)
+    val ans2 = isValid(grid,r-1,c+2,grid.size,expValue+1)
+    val ans3 = isValid(grid,r+1,c+2,grid.size,expValue+1)
+    val ans4 = isValid(grid,r+2,c+1,grid.size,expValue+1)
+    val ans5 = isValid(grid,r+2,c-1,grid.size,expValue+1)
+    val ans6 = isValid(grid,r+1,c-2,grid.size,expValue+1)
+    val ans7 = isValid(grid,r-1,c-2,grid.size,expValue+1)
+    val ans8 = isValid(grid,r-2,c-1,grid.size,expValue+1)
+	
+    return ans1 || ans2 || ans3 || ans4 || ans5 || ans6 || ans7 || ans8
+}
+
+
+
