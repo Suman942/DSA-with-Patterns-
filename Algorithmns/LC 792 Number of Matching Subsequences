@@ -1,0 +1,71 @@
+class Solution {
+    fun numMatchingSubseq(s: String, words: Array<String>): Int {
+        var count = 0
+        if(s.isEmpty()) return count
+        // better solution
+        val map = mutableMapOf<Char, MutableList<Int>>()
+        for(i in 0 until s.length){
+            map.getOrPut(s[i]){
+                mutableListOf()
+            }.add(i)
+        }
+
+        for(str in words){
+            val cMap = map.mapValues{
+                it.value.toMutableList()
+            }.toMutableMap()
+            var previousPosition = -1
+            var isSequence = true
+            for(i in 0 until str.length){
+                if(cMap.containsKey(str[i])){
+                    val list = cMap[str[i]]
+
+                    if(list == null || list.isEmpty()){
+                        isSequence = false
+                        break
+                    }
+                    var position = findPosition(list,previousPosition)
+                  
+                    if(position == -1){
+                         isSequence = false
+                        break
+                    }
+
+                    previousPosition = position
+
+                    cMap[str[i]] = list
+                }else{
+                     isSequence = false
+                     break
+                }
+            }
+
+            if( isSequence ){
+                count++
+            }
+        }
+  
+       
+
+        return count
+    }
+
+        fun findPosition(list:MutableList<Int>,previousPosition:Int):Int{
+        var position = -1
+        
+        var left = 0
+        var right = list.size -1
+        
+        while(left <= right){
+            val mid = left + (right - left)/2
+            if(list[mid] <= previousPosition){
+                left = mid+1
+            }else{
+                position = list[mid]
+                right = mid - 1
+            }
+        }
+        
+        return position
+    }
+}
