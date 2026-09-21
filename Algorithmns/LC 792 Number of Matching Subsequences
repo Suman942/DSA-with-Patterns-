@@ -2,39 +2,51 @@ class Solution {
     fun numMatchingSubseq(s: String, words: Array<String>): Int {
         var count = 0
         if(s.isEmpty()) return count
-        // better solution
+        // store the index of each character
         val map = mutableMapOf<Char, MutableList<Int>>()
         for(i in 0 until s.length){
             map.getOrPut(s[i]){
                 mutableListOf()
             }.add(i)
         }
-
+        // iterate each element
         for(str in words){
-            val cMap = map.mapValues{
-                it.value.toMutableList()
-            }.toMutableMap()
-            var previousPosition = -1
             var isSequence = true
+            var lastIndex = -1
+            // iterate each char of the string
             for(i in 0 until str.length){
-                if(cMap.containsKey(str[i])){
-                    val list = cMap[str[i]]
+                // if char contains in the map
+                if(map.containsKey(str[i])){ 
+                    // fetch the value from the map
+                    val list = map[str[i]]
 
                     if(list == null || list.isEmpty()){
                         isSequence = false
                         break
                     }
-                    var position = findPosition(list,previousPosition)
-                  
-                    if(position == -1){
-                         isSequence = false
-                        break
+
+                // binary search to find the first index whose value is greater than last index
+                var left = 0
+                var right = list.size - 1
+
+                while(left <= right){
+                    val mid = left + (right - left)/2
+                    if(list[mid] > lastIndex){
+                        right = mid - 1
+                    }else{
+                        left = mid +1
                     }
+                }
+                // if first index is equals to the size of the array its invalid
+                if(left ==list.size){
+                    isSequence = false
+                    break
+                }
 
-                    previousPosition = position
+                lastIndex = list[left]
 
-                    cMap[str[i]] = list
                 }else{
+                    // if char doesnt contain
                      isSequence = false
                      break
                 }
@@ -44,28 +56,9 @@ class Solution {
                 count++
             }
         }
-  
-       
+      
 
         return count
     }
 
-        fun findPosition(list:MutableList<Int>,previousPosition:Int):Int{
-        var position = -1
-        
-        var left = 0
-        var right = list.size -1
-        
-        while(left <= right){
-            val mid = left + (right - left)/2
-            if(list[mid] <= previousPosition){
-                left = mid+1
-            }else{
-                position = list[mid]
-                right = mid - 1
-            }
-        }
-        
-        return position
-    }
 }
