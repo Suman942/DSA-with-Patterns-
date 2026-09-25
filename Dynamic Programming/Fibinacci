@@ -1,0 +1,56 @@
+DP is the optimised version of recurrsion.
+Solve smaller problems, save their answers, and reuse those answers instead of solving the same problem again.
+
+Types
+1. Memoization — Top-Down DP
+Recursion + Cache = Memoization
+2. Tabulation — Bottom-Up DP
+
+
+// Memoization
+fun main() {
+ 	val n = 5
+    val memo = IntArray(n+1){-1}
+    fibo(n,memo) //5
+
+}
+
+fun fibo(n:Int,memo:IntArray):Int{
+    if(n <= 1) {
+        memo[n] = n
+        return n
+    }
+
+    if(memo[n] != -1){
+        return memo[n]
+    }
+        
+   val result = fibo(n-1,memo) + fibo(n-2,memo)
+
+   memo[n] = result
+ 
+    return result
+   
+}
+
+
+
+
+// Tabulation
+fun main(){
+  val n = 5
+  val result = fib(n)
+  return result  //5 
+}
+fun fib(n: Int): Int {
+    val dp = IntArray(n + 1)
+
+    dp[0] = 0
+    dp[1] = 1
+
+    for (i in 2..n) {
+        dp[i] = dp[i - 1] + dp[i - 2]
+    }
+
+    return dp[n]
+}
