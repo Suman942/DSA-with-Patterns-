@@ -21,7 +21,7 @@ Explanation: There are three ways to climb to the top.
 3. 2 steps + 1 step
 
 
-
+// DP - Memoization Solution
 class Solution {
     fun climbStairs(n: Int): Int {
         val memo = IntArray(n+1){-1}
@@ -45,3 +45,30 @@ class Solution {
 
     }
 }
+
+
+// Tabulation
+class Solution {
+    fun climbStairs(n: Int): Int {
+      
+
+        return waysTabulation(n)
+      
+    }
+    fun waysTabulation(n:Int):Int{
+        val memo = IntArray(n+1){-1}
+        if(n<=2){
+            return n
+        }
+        memo[1] = 1
+        memo[2] = 2
+
+        for(i in 3 until n+1){
+            memo[i] = memo[i-1] + memo[i-2]
+        }
+        return memo[n]
+    }
+    
+
+
+
