@@ -29,18 +29,46 @@ Explanation: You will start at index 0.
 The total cost is 6.
 
 
-// DP - Memoization approach
 /**
  * You can edit, run, and share this code.
  * play.kotlinlang.org
  */
 fun main() {
 	val nums = intArrayOf(10,15,20)
+    
+    println("-----------------tabulation--------------")
+    
+    println(minCost(nums))
+    
+    println()
+    println()
+    println("---------------meomoization-----------------")
+
+    
     val dp = Array(nums.size){-1}
     val result = minOf(minCost(nums,0,dp), minCost(nums,1,dp))
     
     println(result)
+    
 }
+// tabulation
+fun minCost(nums:IntArray):Int{
+    val n = nums.size
+    val dp = Array(nums.size){0}
+    
+    // min cost at stair 0
+    dp[0] = nums[0]
+    // min cost at stair 1
+    dp[1] = nums[1]
+    
+    for(i in 2 until n){
+        dp[i] = nums[i] + minOf(dp[i - 1], dp[i - 2])
+    }
+    
+    return minOf(dp[n-1],dp[n-2])
+}
+
+// memoization
 fun minCost(nums:IntArray,i:Int,dp:Array<Int>):Int{
     val n = nums.size
     
