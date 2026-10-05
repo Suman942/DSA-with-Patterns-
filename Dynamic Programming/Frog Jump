@@ -40,3 +40,36 @@ fun frogJump(nums:IntArray):Int{
     
     return memo[nums.size - 1]
 }
+
+// memoization
+fun main() {
+	val nums = intArrayOf(30,20,50,10,40) 
+// 	println(frogJump(nums))
+	val dp = Array(nums.size){-1}
+	println(frogJump(nums,0,dp))
+     println(dp.toList())
+
+}
+
+// memoization
+fun frogJump(nums:IntArray,i:Int,dp:Array<Int>):Int{
+    val n = nums.size
+    if(i == n-1){
+        return 0
+    }
+    
+    if(dp[i] != -1){
+        return dp[i]
+    }
+    
+    val oneJump = frogJump(nums,i+1,dp) + kotlin.math.abs(nums[i] - nums[i + 1])
+    val twoJump = if(i +2 < n){
+    	frogJump(nums,i+2,dp) + kotlin.math.abs(nums[i] - nums[i + 2])
+    }else {
+        Int.MAX_VALUE
+    }
+    
+    dp[i] = minOf(oneJump,twoJump)
+    
+    return dp[i]
+}
