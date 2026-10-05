@@ -1,0 +1,42 @@
+You have n stones. The frog starts at stone 0 and wants to reach stone n-1.
+
+The height of each stone is given by:
+
+heights = [10, 20, 30, 10]
+
+The frog can jump:
+
+from i → i + 1
+from i → i + 2
+
+The cost of a jump is:
+
+abs(heights[i] - heights[j])
+
+Find the minimum total cost to reach the last stone.
+
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+	val nums = intArrayOf(30,20,50,10,40) 
+	println(frogJump(nums))
+}
+
+// tabulation
+fun frogJump(nums:IntArray):Int{
+        val memo = Array(nums.size){-1}
+		memo[0] = 0
+    	memo[1] = kotlin.math.abs(nums[1]-nums[0])
+        
+    for(i in 2 until nums.size){
+        val oneJump = memo[i-1] + kotlin.math.abs(nums[i]- nums[i-i])
+        val twoJump = memo[i-2] + kotlin.math.abs(nums[i] - nums[i-2])
+        memo[i] = minOf(oneJump,twoJump)
+    }
+    
+    println(memo.toList())
+    
+    return memo[nums.size - 1]
+}
