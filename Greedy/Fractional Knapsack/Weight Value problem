@@ -1,0 +1,54 @@
+Pick the item with the highest value/weight ratio first.
+If the whole item doesn't fit, take the fraction that fits.
+
+For your case:
+
+value  = [...]
+weight = [...]
+knapsack capacity = 60
+
+
+/**
+ * You can edit, run, and share this code.
+ * play.kotlinlang.org
+ */
+fun main() {
+	val value = intArrayOf(60,100,120,80,150)
+    val weight = intArrayOf(10,20,30,40,15)
+    var k = 60
+    val n = value.size
+    val ratios = Array(n){i->
+        Item(
+            value = value[i],
+            weight = weight[i],
+            ratio = value[i].toDouble() / weight[i].toDouble()
+        )
+    }
+    ratios.sortByDescending{it.ratio}
+    println(ratios.toList())
+    var ans = 0.0
+    
+    for(ratio in ratios){
+        if(ratio.weight <= k){
+            ans += ratio.value
+            k -= ratio.weight
+        }else{
+            val fraction = ratio.ratio * k
+            println(fraction)
+            ans += fraction
+            k = 0
+            break
+        }
+            println("answer: $ans  k:$k")
+
+    }
+    
+           println("answer: $ans")
+
+}
+
+data class Item(
+	var value:Int,
+    var weight:Int,
+    var ratio: Double
+)
